@@ -12,6 +12,7 @@ function getRoom(roomID){
 }
 
 function addPlayer(player, room){
+	console.log("In addPlayer");
 	var deferred = q.defer();
 	console.log("Adding player to room#: " + room.roomID);
 	deferred.resolve(room.players.push(player));

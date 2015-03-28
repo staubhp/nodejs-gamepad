@@ -4,7 +4,6 @@ var q = require('q');
 var rooms = []
 
 function getRoom(roomID){
-	console.log("In getRoom");
 	console.log("room ID: " + rooms[0].roomID);
 	var deferred = q.defer();
 	deferred.resolve(rooms[0]);
@@ -12,7 +11,6 @@ function getRoom(roomID){
 }
 
 function addPlayer(player, room){
-	console.log("In addPlayer");
 	var deferred = q.defer();
 	console.log("Adding player to room#: " + room.roomID);
 	deferred.resolve(room.players.push(player));
