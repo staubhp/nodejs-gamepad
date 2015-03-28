@@ -1,5 +1,6 @@
 var app = undefined;
 var roomHelper = require('./roomHelper');
+var playerHelper = require('./playerHelper');
 var q = require("q");
 
 function start(_app){
@@ -34,8 +35,10 @@ function establishRoutes(){
 
 	app.post('/joinroom', function (req, res){		
 		roomHelper.getRoom(req.body.roomID).then(function(room){
-			roomHelper.addPlayer(player, room).then(function(){
-				res.redirect("/gamepad?rid=" + room.roomID);
+			playerHelper.getPlayer('ident').then(function(player){
+				roomHelper.addPlayer(player, room).then(function(result){
+					res.redirect("/gamepad?rid=" + room.roomID);
+				});			
 			});
 		});
 	});
@@ -43,7 +46,7 @@ function establishRoutes(){
 	app.get('/gamepad', function(req, res){
 		//this is the small format game input device
 		var roomID = req.query.rid;
-		res.send("Welcome to gamepad for room #" + roomID);
+		res.render('gamepad', {roomID:roomID});
 	});
 }
 

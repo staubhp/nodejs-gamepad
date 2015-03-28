@@ -1,5 +1,6 @@
 var app = undefined;
 var server = undefined;
+var streamHandler = require('./streamHandler');
 
 function start(_app){
 	app = _app;
@@ -10,6 +11,7 @@ function start(_app){
 		console.log("Express app listening at http://%s:%s", host, port);
 	});
 	var io = require('socket.io').listen(server);
+	streamHandler(io);
 }
 
 exports.start = start;
