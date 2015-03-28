@@ -14,26 +14,14 @@ function start(_app){
 
 function establishRoutes(){
 	app.get('/', function(req, res){
-		//TODO: replace with templates
-		var body = '<html>'+
-			'<body>'+
-			'<form action="/joinroom" method="post">' +
-			'<textarea name="roomID" rows="20" cols="60"></textarea>'+
-			'<input type="submit" value="Join Room" />' +
-			'</form>' +
-			'<form action="/createroom" method="post">' +
-			'<input type="submit" value="Create Room">' +
-	       		'</form>' + 	
-			'</body>' +
-			'</html>';
-		res.send(body);
+		res.render('home');
 	});
 
 	app.get('/room', function(req, res){
 		//this is the large format game screen
 		var roomID = req.query.rid;
-		res.send("Welcome to room #" + roomID); 
-		//TODO: start socket.io here
+		res.render('room', {roomID:roomID});
+		//TODO:make sure the template has <script src="/socket.io/socket.io.js"></script>
 
 	});
 

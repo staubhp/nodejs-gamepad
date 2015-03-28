@@ -3,4 +3,5 @@ var router = require("./router");
 var express = require("express");
 var app = express();
 
-server.start(app, router);
+router.start(app);
+server.start(app);
