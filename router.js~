@@ -20,7 +20,7 @@ function establishRoutes(){
 	app.get('/room', function(req, res){
 		//this is the large format game screen
 		var roomID = req.query.rid;
-		res.render('room', {roomID: roomID});
+		res.render('room', {roomID:roomID});
 		//TODO:make sure the template has <script src="/socket.io/socket.io.js"></script>
 
 	});
