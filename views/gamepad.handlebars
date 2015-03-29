@@ -1,6 +1,8 @@
 Gamepad in room # {{roomID}}
 <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 <script type='text/javascript'>
+	debugger;
+	var myRoomID = "{{roomID}}";
 	var socket = io('http://localhost');
 	socket.on('connect', function(){
 		console.log("Client socket is connected");
@@ -8,6 +10,12 @@ Gamepad in room # {{roomID}}
 	});
 	
 	socket.on('helloClient', function(){
-		console.log("Client received helloClient. Handshake is complete.");
+		console.log("Client received helloClient, completing handshake.");
+	});
+
+	socket.emit('joinRoom', {roomID: myRoomID});
+
+	socket.on('joinedRoom', function(data){
+		console.log("Joined room " +data.roomID);
 	});
 </script>

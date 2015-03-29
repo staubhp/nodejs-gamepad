@@ -1,6 +1,5 @@
 var q = require('q');
 
-
 var rooms = []
 
 function getRoom(roomID){
