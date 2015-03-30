@@ -1,8 +1,6 @@
-Gamepad in room # {{roomID}}
-<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
-<script type='text/javascript'>
-	debugger;
-	var myRoomID = "{{roomID}}";
+angular.module('ngp').controller('gamepadController', ['$scope',
+		function gamepadController($scope){
+var myRoomID = "{{roomID}}";
 
 	var setupSocket = function(data){
 		var socket = io('http://localhost');
@@ -27,4 +25,4 @@ Gamepad in room # {{roomID}}
 		success: setupSocket
 		});
 	
-</script>
+		}]);
