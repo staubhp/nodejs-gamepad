@@ -1,6 +1,7 @@
 var app = undefined;
 var roomHelper = require('./roomHelper');
 var playerHelper = require('./playerHelper');
+var path = require('path');
 var q = require("q");
 
 function start(_app){
@@ -14,7 +15,7 @@ function start(_app){
 
 function establishRoutes(){
 	app.get('/', function(req, res){
-		res.render('home');
+		res.sendFile(path.join(__dirname+"/index.html"));
 	});
 
 	app.get('/room', function(req, res){

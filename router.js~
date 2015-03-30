@@ -14,7 +14,7 @@ function start(_app){
 
 function establishRoutes(){
 	app.get('/', function(req, res){
-		res.render('home');
+		res.sendFile("./index.html");
 	});
 
 	app.get('/room', function(req, res){
