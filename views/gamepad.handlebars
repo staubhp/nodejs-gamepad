@@ -3,19 +3,28 @@ Gamepad in room # {{roomID}}
 <script type='text/javascript'>
 	debugger;
 	var myRoomID = "{{roomID}}";
-	var socket = io('http://localhost');
-	socket.on('connect', function(){
-		console.log("Client socket is connected");
-		socket.emit('helloServer', {});
-	});
+
+	var setupSocket = function(data){
+		var socket = io('http://localhost');
+		socket.on('connect', function(){
+			console.log("Client socket is connected");
+			socket.emit('helloServer', {});
+			socket.emit('joinRoom', {room:data.room, player:data.player}); 
+		});
 	
-	socket.on('helloClient', function(){
-		console.log("Client received helloClient, completing handshake.");
-	});
+		socket.on('helloClient', function(){
+			console.log("Client received helloClient, completing handshake.");
+		});
 
-	socket.emit('joinRoom', {roomID: myRoomID});
+	}
 
-	socket.on('joinedRoom', function(data){
-		console.log("Joined room " +data.roomID);
-	});
+
+	$.ajax({
+		type: 'POST',
+		data: JSON.stringify({roomID: myRoomID}),
+		contentType: 'application/json',
+		url: '/joinroom',
+		success: setupSocket
+		});
+	
 </script>

@@ -4,10 +4,9 @@ var playerHelper = require('./playerHelper');
 var q = require("q");
 
 function start(_app){
-	debugger;
 	app = _app;
 	var bodyParser = require('body-parser');
-	//app.use(bodyParser.json());
+	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: true}));
 	establishRoutes();
 	
@@ -21,32 +20,40 @@ function establishRoutes(){
 	app.get('/room', function(req, res){
 		//this is the large format game screen
 		var roomID = req.query.rid;
-		res.render('room', {roomID:roomID});
-		//TODO:make sure the template has <script src="/socket.io/socket.io.js"></script>
-
+	
+		roomHelper.getRoom(roomID).then(function(room){
+			res.render('room', {room:room});
+		});
 	});
 
 	app.post('/createroom', function (req, res){
-		debugger;		
 		roomHelper.createRoom().then(function(room){
 			res.redirect("/room?rid=" + room.roomID);
 		});
 	});
 
-	app.post('/joinroom', function (req, res){		
+	app.post('/joinroom', function (req, res){				
+	//	res.setHeader('Content-Type', 'application/json');
+		//res.header("Access-Control-Allow-Origin", "*");
+	        //res.header("Access-Control-Allow-Headers", "X-Requested-With"); 
+		console.log('request body' + req.body);
 		roomHelper.getRoom(req.body.roomID).then(function(room){
 			playerHelper.getPlayer('ident').then(function(player){
 				roomHelper.addPlayer(player, room).then(function(result){
-					res.redirect("/gamepad?rid=" + room.roomID);
-				});			
+					var data = {};
+					data.room = room;
+					data.player = player;
+					res.send(data);					
+				});
 			});
 		});
 	});
 
-	app.get('/gamepad', function(req, res){
+	app.post('/gamepad', function(req, res){
 		//this is the small format game input device
-		var roomID = req.query.rid;
-		res.render('gamepad', {roomID:roomID});
+		var roomID = req.body.roomID;//TODO: this no longer working due to body parser
+		//TODO: the gamepad JS will make the call to joinroom
+		res.render('gamepad', {roomID: roomID});
 	});
 }
 

@@ -1,4 +1,4 @@
-require('q');
+var q = require('q');
 
 var getPlayer = function(ident){
 	var deferred = q.defer();

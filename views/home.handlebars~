@@ -1,10 +1,9 @@
-
 <form action="/createroom" method="post">
-	<input type="submit" value="Create Room">
+	<input type="submit" value="Create Room" />
 </form>
 
 <form action="/joinroom" method="post">
 	<input type="submit" value="Join Room" />
-	<textarea name="roomID"></textarea>
+	<textarea name="roomID">Enter Room ID</textarea>
 </form>
 
