@@ -3,10 +3,11 @@ Gamepad in room # {{roomID}}
 <script type='text/javascript'>
 	debugger;
 	var myRoomID = "{{roomID}}";
+
 	var setupSocket = function(data){
 		var socket = io('http://localhost');
 		socket.on('connect', function(){
-			console.log("Client socket is connected");
+			console.log("Gamepad socket is connected");
 			socket.emit('helloServer', {});
 			socket.emit('joinRoom', {room:data.room, player:data.player}); 
 		});

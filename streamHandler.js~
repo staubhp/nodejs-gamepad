@@ -7,12 +7,10 @@ module.exports = function(io){
 			socket.emit('helloClient',{});
 		});
 		
-		socket.on('joinRoom', function(data){
-			console.log("Joining room " + data.roomID);
-			socket.join(data.roomID);
-			socket.emit('joinedRoom', {roomID:data.roomID});
+		socket.on('join', function(data){
+			console.log("Player " + data.player.playerID + " joined room " + data.room.roomID);
+			//TODO: add player to room.players
+			socket.broadcast.emit('joined', {player: data.player});
 		});
 	});
-
-	
 }

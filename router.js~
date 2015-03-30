@@ -33,14 +33,11 @@ function establishRoutes(){
 	});
 
 	app.post('/joinroom', function (req, res){				
-	//	res.setHeader('Content-Type', 'application/json');
-		//res.header("Access-Control-Allow-Origin", "*");
-	        //res.header("Access-Control-Allow-Headers", "X-Requested-With"); 
-		console.log('request body' + req.body);
 		roomHelper.getRoom(req.body.roomID).then(function(room){
 			playerHelper.getPlayer('ident').then(function(player){
 				roomHelper.addPlayer(player, room).then(function(result){
-					var data = room;
+					var data = {};
+					data.room = room;
 					data.player = player;
 					res.send(data);					
 				});
@@ -50,8 +47,14 @@ function establishRoutes(){
 
 	app.post('/gamepad', function(req, res){
 		//this is the small format game input device
-		var roomID = req.body.roomID;//TODO: this no longer working due to body parser
-		//TODO: the gamepad JS will make the call to joinroom
+		var roomID = req.body.roomID;
+		res.render('gamepad', {roomID: roomID});
+	});
+
+	app.get('/gamepad', function(req, res){
+		//TODO: will need to look up this player by their credentials and find
+		//what room they belong to 
+		var roomID = '34334';
 		res.render('gamepad', {roomID: roomID});
 	});
 }
