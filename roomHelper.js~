@@ -1,6 +1,5 @@
 var q = require('q');
 
-
 var rooms = []
 
 function getRoom(roomID){
@@ -25,6 +24,8 @@ function createRoom(){
 		updateDt: Date.now(),
 		players:[]
 	}
+	myRoom.push({name:'Payton'});
+	myRoom.push({name:'Carl'});
 	rooms.push(myRoom);
 	deferred.resolve(myRoom);
 	return deferred.promise;

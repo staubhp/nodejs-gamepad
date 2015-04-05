@@ -24,6 +24,8 @@ function createRoom(){
 		updateDt: Date.now(),
 		players:[]
 	}
+	myRoom.players.push({name:'Payton'});
+	myRoom.players.push({name:'Carl'});
 	rooms.push(myRoom);
 	deferred.resolve(myRoom);
 	return deferred.promise;

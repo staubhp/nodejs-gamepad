@@ -1,6 +1,23 @@
 Welcome to room #{{room.roomID}} 
 
 <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+<script type="text/jsx">
+	var PlayerList = React.createClass({
+		render: function() {
+			var createPlayerNode = function(player){
+				return <li>{player.name}</li>;
+			};
+			return <ul>{this.props.players.map(createPlayerNode)}</ul>;
+		}
+	});
+
+	var players = {{{json room.players}}};
+	var data = {};
+	data.players = players;
+
+	React.render(React.createElement(PlayerList, data),
+		document.getElementById('players'));
+</script>
 <script type='text/javascript'>
 	var socket = io('http://localhost');
 	socket.on('connect', function(){
@@ -10,13 +27,13 @@ Welcome to room #{{room.roomID}}
 	socket.on('joined', function(data){
 		debugger;
 		var player = data.player;
-		'{{room.players}}'.push(player);
+		//TODO: push to room.players
 	});
 </script>
 
 <div id="players">
 	Players
 	<br />
-	<!--TODO: repeater with room.players in it-->
+	<div id="players" />	
 </div>
 
