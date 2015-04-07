@@ -12,10 +12,5 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 app.use("/", express.static(__dirname + "/public/"));
 
-//Handlebars.registerHelper('json', function(context) {
-//    return JSON.stringify(context);
-//});
-
-
 router.start(app);
 server.start(app);

@@ -2,32 +2,42 @@ Welcome to room #{{room.roomID}}
 
 <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 <script type="text/jsx">
+
+	var room = {{{json room}}};
+
 	var PlayerList = React.createClass({
+		getInitialState: function(){
+			return {players: room.players};
+		},
 		render: function() {
 			var createPlayerNode = function(player){
 				return <li>{player.name}</li>;
 			};
-			return <ul>{this.props.players.map(createPlayerNode)}</ul>;
+			return <ul>{this.state.players.map(createPlayerNode)}</ul>;
+		},
+		refresh: function(){
+			this.setState({players: room.players});
 		}
 	});
 
-	var data = {};
-	data.players = {{{json room.players}}};
 
-	React.render(React.createElement(PlayerList, data),
+	var myPlayerList = React.render(React.createElement(PlayerList, null),
 		document.getElementById('players'));
-</script>
-<script type='text/javascript'>
+
+
 	var socket = io('http://localhost');
+
 	socket.on('connect', function(){
 		console.log("Room socket is connected");
 	});
 
 	socket.on('joined', function(data){
 		debugger;
-		var player = data.player;
-		//TODO: push to room.players
+		room.players.push(data.player);
+		myPlayerList.refresh();
 	});
+</script>
+<script type='text/javascript'>
 </script>
 
 <div id="players">
