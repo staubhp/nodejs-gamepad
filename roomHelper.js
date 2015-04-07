@@ -1,11 +1,12 @@
 var q = require('q');
+var util = require('./utilHelpers.js');
+var _ = require('underscore');
 
 var rooms = []
 
 function getRoom(roomID){
-	console.log("room ID: " + rooms[0].roomID);
 	var deferred = q.defer();
-	deferred.resolve(rooms[0]);
+	deferred.resolve(_.findWhere(rooms, {roomID: roomID}));
 	return deferred.promise;
 }
 
@@ -19,13 +20,11 @@ function addPlayer(player, room){
 function createRoom(){
 	var deferred = q.defer();
 	var myRoom = {
-		roomID: '7bh5', //TODO:generate
+		roomID: util.genID(3), //TODO: unique check 
 		createDt: Date.now(),
 		updateDt: Date.now(),
 		players:[]
 	}
-	myRoom.players.push({name:'Payton'});
-	myRoom.players.push({name:'Carl'});
 	rooms.push(myRoom);
 	deferred.resolve(myRoom);
 	return deferred.promise;

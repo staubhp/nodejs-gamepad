@@ -2,7 +2,6 @@ Welcome to room #{{room.roomID}}
 
 <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
 <script type="text/jsx">
-
 	var room = {{{json room}}};
 
 	var PlayerList = React.createClass({
@@ -36,8 +35,6 @@ Welcome to room #{{room.roomID}}
 		room.players.push(data.player);
 		myPlayerList.refresh();
 	});
-</script>
-<script type='text/javascript'>
 </script>
 
 <div id="players">

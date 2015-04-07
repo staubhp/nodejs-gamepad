@@ -6,7 +6,7 @@ var exphbs = require('express-handlebars');
 
 app.engine('handlebars', exphbs({ 
 	defaultLayout: 'main',
-	helpers: require("./public/js/hbhelpers.js").helpers
+	helpers: require("./hbHelpers.js").helpers
 }));
 
 app.set('view engine', 'handlebars');

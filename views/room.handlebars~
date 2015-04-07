@@ -21,7 +21,7 @@ Welcome to room #{{room.roomID}}
 	});
 
 
-	React.render(React.createElement(PlayerList, null),
+	var myPlayerList = React.render(React.createElement(PlayerList, null),
 		document.getElementById('players'));
 
 
@@ -34,10 +34,8 @@ Welcome to room #{{room.roomID}}
 	socket.on('joined', function(data){
 		debugger;
 		room.players.push(data.player);
-		PlayerList.refresh();
+		myPlayerList.refresh();
 	});
-</script>
-<script type='text/javascript'>
 </script>
 
 <div id="players">
