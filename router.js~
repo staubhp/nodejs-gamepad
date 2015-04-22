@@ -9,8 +9,8 @@ function start(_app){
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({extended: true}));
 	establishRoutes();
-	
 }
+
 
 function establishRoutes(){
 	app.get('/', function(req, res){
@@ -33,29 +33,24 @@ function establishRoutes(){
 	});
 
 	app.post('/joinroom', function (req, res){				
+		if (!req.body.roomID)
+			res.redirect("/");
+
 		roomHelper.getRoom(req.body.roomID).then(function(room){
 			playerHelper.getPlayer('ident').then(function(player){
 				roomHelper.addPlayer(player, room).then(function(result){
 					var data = {};
 					data.room = room;
-					data.player = player;
-					res.send(data);					
+					data.player = player;			
+					//TODO: store the data in session, then redirect to gamepad so the URL changes
+					res.render('gamepad', {data:data});
 				});
 			});
 		});
 	});
 
-	app.post('/gamepad', function(req, res){
-		//this is the small format game input device
-		var roomID = req.body.roomID;
-		res.render('gamepad', {roomID: roomID});
-	});
-
-	app.get('/gamepad', function(req, res){
-		//TODO: will need to look up this player by their credentials and find
-		//what room they belong to 
-		var roomID = '34334';
-		res.render('gamepad', {roomID: roomID});
+	app.get('/joinroom', function (req, res){
+		res.redirect('/');
 	});
 }
 

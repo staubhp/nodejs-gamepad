@@ -15,11 +15,8 @@
 	}
 
 
-	$.ajax({
-		type: 'POST',
-		data: JSON.stringify({roomID: roomID}),
-		contentType: 'application/json',
-		url: '/joinroom',
-		success: setupSocket //TODO: handle failure
-		});
+	function init(){
+		setupSocket(data);
+	}
 
+	init();
